@@ -1,0 +1,17 @@
+/* src/styles/tailwind.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f4f4f4;
+  font-family: 'Inter', sans-serif;
+}
+
+.tabulator-row {
+  transition: all 0.3s ease;
+}
+
+.tabulator-row:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
