@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { TabulatorFull as Tabulator } from 'tabulator-tables';
 import 'tabulator-tables/dist/css/tabulator.min.css';
+import DeleteButton from './Buttons/DeleteButton';
 
 function TaskListManager() {
   const [tasks, setTasks] = useState([]);
@@ -18,12 +19,14 @@ function TaskListManager() {
       .then((response) => response.json())
       .then((data) => {
         // Process first 20 tasks
+        console.log(data);
         const processedTasks = data.slice(0, 20).map((task) => ({
           id: task.id,
           title: task.title,
           description: task.title, // Using title as description for simplicity
           status: task.completed ? 'Done' : 'To Do',
         }));
+        console.log("Processed Tasks",processedTasks);
         setTasks(processedTasks);
       });
   }, []);
@@ -82,7 +85,7 @@ function TaskListManager() {
             title: 'Actions',
             width: 100,
             field: 'actions',
-            formatter: () => '<button class="delete-btn">Delete</button>',
+            formatter: () => DeleteButton(),
             cellClick: (e, cell) => {
               const taskId = cell.getRow().getData().id;
               cell.getRow().delete();
@@ -136,14 +139,14 @@ function TaskListManager() {
         {/* Task Counters */}
         <div className="mb-4 flex space-x-4">
           {Object.entries(taskCounters).map(([status, count]) => (
-            <div key={status} className="p-2 bg-red-200 rounded">
+            <div key={status} className="p-2 bg-blue-200 rounded">
               {status}: {count}
             </div>
           ))}
         </div>
 
         {/* New Task Form */}
-        <form onSubmit={handleNewTaskSubmit} className="bg-gray-100 p-4 rounded">
+        <form onSubmit={handleNewTaskSubmit} className="bg-gray-100 p-4 rounded border border-gray-300 mb-4">
           <div className="mb-2">
             <input
               type="text"
@@ -194,5 +197,8 @@ function TaskListManager() {
     </div>
   );
 }
+
+
+
 
 export default TaskListManager;
