@@ -121,7 +121,7 @@ function TaskListManager() {
     });
   };
 
-  // Render task counters
+  // Render tasks counters
   const taskCounters = {
     'To Do': tasks.filter((task) => task.status === 'To Do').length,
     'In Progress': tasks.filter((task) => task.status === 'In Progress').length,
